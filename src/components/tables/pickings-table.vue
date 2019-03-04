@@ -15,7 +15,7 @@
       >
 
         <div slot="table-busy" class="text-center text-danger my-2">
-          <animation />
+          <loading-animation />
         </div>
 
         <template slot="itemAllocated" slot-scope="row">
