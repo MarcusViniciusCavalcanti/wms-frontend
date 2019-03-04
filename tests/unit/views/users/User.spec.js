@@ -19,7 +19,7 @@ describe('User.vue', () => {
   it('sets the correct default data', () => {
     expect(typeof User.data).toMatch('function')
     const defaultData = User.data()
-    expect(defaultData.fields).toEqual([{key: 'key'}, {key: 'value'}])
+    expect(defaultData.fieldsPickings).toEqual([{key: 'key'}, {key: 'value'}])
   })
   it('is Vue instance', () => {
     const wrapper = shallowMount(User, {

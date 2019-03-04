@@ -5,7 +5,7 @@ import Router from 'vue-router'
 const DefaultContainer = () => import('@/containers/DefaultContainer')
 
 // Views
-const Dashboard = () => import('@/views/Dashboard')
+const Dashboard = () => import('@/views/dashboard')
 
 // Routes
 import configurations from './routers/configurations';
@@ -29,7 +29,7 @@ export default new Router({
           component: Dashboard
         },
         {
-          path: '/configurations',
+          path: 'configurations',
           redirect: '/configurations/allocations/all',
           name: 'Configurações',
           component: {

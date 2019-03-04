@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils'
 import BootstrapVue from 'bootstrap-vue'
-import Dashboard from '@/views/Dashboard'
+import Dashboard from '@/views/dashboard'
 
 Vue.use(BootstrapVue)
 

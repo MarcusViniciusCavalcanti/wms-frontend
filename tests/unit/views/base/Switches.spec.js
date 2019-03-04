@@ -15,7 +15,7 @@ describe('Switches.vue', () => {
   it('sets the correct default data', () => {
     expect(typeof Switches.data).toMatch('function')
     const defaultData = Switches.data()
-    expect(typeof defaultData.fields).toMatch('object')
+    expect(typeof defaultData.fieldsPickings).toMatch('object')
     expect(defaultData.checker).toMatch('yes')
   })
   it('is Vue instance', () => {

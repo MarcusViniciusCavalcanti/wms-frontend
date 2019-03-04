@@ -39,6 +39,8 @@
       </main>
     </div>
 
+    <vue-snotify></vue-snotify>
+
     <TheFooter>
       <div>
         <span class="ml-1">&copy; 2019 Teorema.</span>
@@ -86,10 +88,24 @@ export default {
       nav: nav.items
     }
   },
+
+  watch: {
+    notifications(notifications) {
+      notifications.forEach(notification => {
+        this.$snotify[notification.type](notification.body, notification.title, notification.config);
+      });
+    }
+  },
+
   computed: {
+    notifications() {
+      return this.$store.getters['app/notifications'];
+    },
+
     name () {
       return this.$route.name
     },
+
     list () {
       return this.$route.matched.filter((route) => route.name || route.meta.label )
     }
