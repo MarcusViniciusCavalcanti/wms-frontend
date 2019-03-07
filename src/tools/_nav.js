@@ -6,7 +6,36 @@ export default {
       icon: 'icon-speedometer',
       badge: {
         variant: 'primary',
+      },
+    },
+    {
+      title: true,
+      name: 'Pedidos',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
       }
+    },
+    {
+      name: 'Entrada',
+      url: '/orders/in/all',
+      icon: 'cui-task'
+    },
+    {
+      name: 'Saída',
+      url: '/orders/out/all',
+      icon: 'icon-share-alt'
+    },
+    {
+      name: 'Transferência',
+      url: '/orders/shared/all',
+      icon: 'icon-share'
+    },
+    {
+      name: 'Separação',
+      url: '/orders/prepare/all',
+      icon: 'cui-cart'
     },
     {
       title: true,

@@ -9,6 +9,8 @@ const Dashboard = () => import('@/views/dashboard')
 
 // Routes
 import configurations from './routers/configurations';
+import ordersPrepare from './routers/orders-prepare'
+import ordersItemsIn from './routers/orders-items-in'
 
 Vue.use(Router)
 
@@ -36,6 +38,15 @@ export default new Router({
             render (component) { return component('router-view') },
           },
           children: [ ...configurations ]
+        },
+        {
+          path: 'orders',
+          redirect: '/orders/prepare/all',
+          name: 'Pedidos',
+          component: {
+            render (component) { return component('router-view') },
+          },
+          children: [ ...ordersPrepare, ...ordersItemsIn ]
         }
       ]
     },

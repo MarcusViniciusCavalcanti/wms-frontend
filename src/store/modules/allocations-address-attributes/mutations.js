@@ -12,4 +12,9 @@ export default {
     state.allocationAddressAttributes.
       _embedded.allocationsAttributesResourcesList.unshift(allocationAddressAttribute)
   },
+
+  'REMOVE_ALLOCATION_ATTRIBUTES'(state, allocationAddressAttribute) {
+    const index = state.allocationAddressAttributes._embedded.allocationsAttributesResourcesList.indexOf(allocationAddressAttribute)
+    state.allocationAddressAttributes._embedded.allocationsAttributesResourcesList.splice(index, 1)
+  }
 }
