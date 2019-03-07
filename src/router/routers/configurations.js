@@ -1,8 +1,6 @@
 const Allocations = () => import('@/views/allocation/index')
 const Form = () => import('@/views/allocation/form')
 const Attributes = () => import('@/views/allocation/attributes/list-all')
-const NewAttributes = () => import('@/views/allocation/attributes/add-attributes')
-
 
 export default [
   {
@@ -25,9 +23,4 @@ export default [
     name: 'Atributos Alocações',
     component:  Attributes
   },
-  {
-    path: '/configurations/allocations/attributes/new',
-    name: 'Novo Atributos Alocações',
-    component: NewAttributes
-  }
 ]

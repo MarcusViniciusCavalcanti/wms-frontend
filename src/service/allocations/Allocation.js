@@ -16,10 +16,8 @@ export default class Allocation {
   async save ({ uuid, name, address, quantityMax, quantityMin, reserves, _links }) {
     if (uuid) {
       const { data } = await this.update({ uuid, name, address, quantityMax, quantityMin, reserves, _links })
-      console.log('create', data)
     }  else {
       const { data } = await this.create({ name, address, quantityMax, quantityMin, reserves })
-      console.log('update',data)
     }
   }
 

@@ -85,6 +85,7 @@
                                 :label="input.name"
                                 label-align-sm="right"
                                 :label-for="input.name"
+                                :key="input.uuid"
                   >
                     <b-form-input :id="input.name" v-model="formData[input.name]" required/>
                   </b-form-group>
@@ -96,7 +97,11 @@
                 <b-row>
                   <b-col md="12" sm="12" class="margin-bottom">
                     <h5>Alocações Reservas</h5>
-                    <b-badge class="margin-left" variant="info" v-for="reserve in this.formData.reserves">
+                    <b-badge
+                      class="margin-left"
+                      variant="info"
+                      v-for="reserve in this.formData.reserves"
+                      :key="reserve.uuid">
                       {{ reserve.name }}
                     </b-badge>
                   </b-col>
@@ -182,7 +187,7 @@
         submitting: false,
         isValid: false,
         formData: getFormData(),
-        selectedReserve: {},
+        selectedLocal: {},
         allocations: [],
         titleCardForm: 'Alocação',
       }
@@ -271,13 +276,13 @@
       addReserve () {
         const { reserves } = this.formData
 
-        if (reserves === undefined && this.selectedReserve.uuid !== null) {
-          this.formData.reserves = [this.selectedReserve]
+        if (reserves === undefined && this.selectedLocal.uuid !== null) {
+          this.formData.reserves = [this.selectedLocal]
         }  else {
-          const found = reserves.some(({uuid}) => uuid === this.selectedReserve.uuid)
+          const found = reserves.some(({uuid}) => uuid === this.selectedLocal.uuid)
 
-          if (!found && this.selectedReserve.uuid !== null) {
-            this.formData.reserves.push(this.selectedReserve)
+          if (!found && this.selectedLocal.uuid !== null) {
+            this.formData.reserves.push(this.selectedLocal)
             this.selectedReserve = {}
           }
         }

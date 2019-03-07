@@ -41,11 +41,11 @@
             <div class="card-header-actions">
 
               <b-link class='card-header-action btn-minimize'>
-                <i class='icon-pencil' @click.self='update(attribute)'></i>
+                <i class='icon-pencil' @click.prevent='update(attribute)'></i>
               </b-link>
 
               <b-link class='card-header-action btn-minimize'>
-                <i class='icon-trash' @click.self='remove(attribute)'></i>
+                <i class='icon-trash' @click.prevent='remove(attribute)'></i>
               </b-link>
 
             </div>
@@ -144,7 +144,7 @@
 
       create: async function (data) {
 
-        if (data.uuid === null) {
+        if (data.uuid === '') {
           await allocationAddressAttributes.create(data)
         } else {
           console.log(data)
@@ -155,8 +155,8 @@
         this.$root.$emit('bv::toggle::collapse', 'showForm')
       },
 
-      remove: function (data) {
-
+      remove: async function (data) {
+        await allocationAddressAttributes.remove(data)
       }
     }
   }
