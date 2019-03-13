@@ -30,7 +30,8 @@
             :url="this.urlAllComplete"
             :fields='fieldsComplete'
             labelItem="Items"
-          />
+           />
+
         </b-tab>
       </b-tabs>
 
@@ -52,15 +53,18 @@
         urlAllComplete: '',
         fieldsPrepare: [
           { key: 'document', label: 'Documento', sortable: true },
-          { key: 'costumer', label: 'Cliente', sortable: true },
+          { key: 'operation', label: 'Tipo de operação', sortable: true },
+          { key: 'destination', label: 'Destino / Origem', sortable: true },
           { key: 'items', label: '' },
-          { key: 'process', label: '% Concluida'}
+          { key: 'process', label: '% Concluida'},
+          { key: 'tasks', label: 'Execuções'},
         ],
         fieldsComplete: [
           { key: 'document', label: 'Documento', sortable: true },
-          { key: 'costumer', label: 'Cliente', sortable: true },
+          { key: 'destination', label: 'Destino / Origem', sortable: true },
           { key: 'items', label: '' },
-          { key: 'completeId', label: 'Concluida em'}
+          { key: 'completeIn', label: 'Concluida em'},
+          { key: 'tasks', label: 'Execuções'},
         ],
       }
   },

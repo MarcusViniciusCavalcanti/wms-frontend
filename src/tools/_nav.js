@@ -18,19 +18,9 @@ export default {
       }
     },
     {
-      name: 'Entrada',
-      url: '/orders/in/all',
+      name: 'Entrada de Item',
+      url: '/orders/items-in/all',
       icon: 'cui-task'
-    },
-    {
-      name: 'Saída',
-      url: '/orders/out/all',
-      icon: 'icon-share-alt'
-    },
-    {
-      name: 'Transferência',
-      url: '/orders/shared/all',
-      icon: 'icon-share'
     },
     {
       name: 'Separação',
@@ -39,7 +29,7 @@ export default {
     },
     {
       title: true,
-      name: 'Configurações',
+      name: 'Ações Internas',
       class: '',
       wrapper: {
         element: '',
@@ -48,25 +38,37 @@ export default {
     },
     {
       name: 'Alocação',
-      url: '/configurations/allocations/all',
-      icon: 'icon-map',
+      url: '/allocations/all',
+      icon: 'fa fa-cubes',
       children: [
         {
           name: 'Todos',
-          url: '/configurations/allocations/all',
+          url: '/allocations/all',
           icon: 'icon-layers'
         },
         {
           name: 'Nova',
-          url: '/configurations/allocations/new',
+          url: '/allocations/new',
           icon: 'icon-plus'
         },
         {
           name: 'Attributos',
-          url: '/configurations/allocations/attributes',
+          url: '/allocations/attributes',
           icon: 'icon-puzzle'
         },
       ]
-    }
+    },
+    {
+      name: 'Realocação',
+      url: '/reallocations/all',
+      icon: 'icon-refresh',
+      children: [
+        {
+          name: 'Todos',
+          url: '/reallocations/all',
+          icon: 'icon-layers'
+        },
+      ]
+    },
   ]
 }

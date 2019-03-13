@@ -16,5 +16,17 @@ export default {
         element.locals = item.locals
       }
     })
-  }
+  },
+
+  'START_PREPARE_ORDER'(state, task) {
+    state.order.tasks.push(task)
+  },
+
+  'STOP_PREPARE_ORDER'(state, task) {
+    state.order.tasks.forEach(element => {
+      if (element.uuid === task.uuid) {
+        element.end = task.end
+      }
+    })
+  },
 }

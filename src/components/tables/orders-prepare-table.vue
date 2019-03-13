@@ -40,6 +40,22 @@
       <template slot="process" slot-scope="row">
         <b-progress :value="complete(row.item.items)" :max="100" show-progress></b-progress>
       </template>
+
+      <template slot="tasks" slot-scope="row">
+        <div class="cursor-pointer" v-if="row.item.tasks.length > 0">
+          <b-badge variant="success" @click.passive="row.toggleDetails">Movimentação</b-badge>
+        </div>
+
+        <div v-else>
+          <b-badge variant="dark">Sem Movimentação</b-badge>
+        </div>
+      </template>
+
+      <template slot="row-details" slot-scope="row">
+
+        <b-table :items="row.item.tasks" :fields="fieldsTasks"></b-table>
+
+      </template>
     </b-table>
 
     <nav>
@@ -91,6 +107,10 @@
         currentPage: 1,
         perPage: 20,
         totalRows: 20,
+        fieldsTasks: [
+          { key: 'start', label: 'Iniciada em'},
+          { key: 'end', label: 'Parada em'},
+        ]
       }
     },
 
@@ -131,5 +151,7 @@
 </script>
 
 <style scoped>
-
+  .cursor-pointer {
+    cursor: pointer;
+  }
 </style>

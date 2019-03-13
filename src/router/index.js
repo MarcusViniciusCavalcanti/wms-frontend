@@ -8,7 +8,7 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 const Dashboard = () => import('@/views/dashboard')
 
 // Routes
-import configurations from './routers/configurations';
+import configurations from './routers/actionsIntern'
 import ordersPrepare from './routers/orders-prepare'
 import ordersItemsIn from './routers/orders-items-in'
 
@@ -31,9 +31,9 @@ export default new Router({
           component: Dashboard
         },
         {
-          path: 'configurations',
-          redirect: '/configurations/allocations/all',
-          name: 'Configurações',
+          path: 'actions',
+          redirect: '/allocations/all',
+          name: 'Ações internas',
           component: {
             render (component) { return component('router-view') },
           },
@@ -47,7 +47,7 @@ export default new Router({
             render (component) { return component('router-view') },
           },
           children: [ ...ordersPrepare, ...ordersItemsIn ]
-        }
+        },
       ]
     },
   ]

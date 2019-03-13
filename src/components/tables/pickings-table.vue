@@ -34,7 +34,7 @@
 
         <template slot="reserve" slot-scope="row">
           <div class="reserves" v-if="row.item.reserves">
-            <b-badge variant="success" @click.passive="row.toggleDetails">Com reserva</b-badge>
+            <b-badge variant="success" @click="row.toggleDetails">Com reserva</b-badge>
           </div>
 
           <div v-else>

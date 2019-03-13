@@ -26,7 +26,7 @@
             </div>
             <div class="h5 mb-0">{{item.name}}</div>
             <small v-if="item.prepare !== item.amount" class="text-muted text-uppercase font-weight-bold">
-              Pendentes: {{item.amount - item.prepare}}
+              Pendentes: {{ item.amount - item.prepare }}
             </small>
             <b-progress
               v-if="item.prepare !== item.amount"
@@ -106,27 +106,30 @@
 
     mounted: async function () {
       this.order = store.getters['order/order']
-      await service.startPrepare()
+
+      const formData = {
+        orderUUID: this.order.uuid,
+        time: new Date()
+      }
+
+      await service.startPrepare(formData)
 
       const { box } = await this.$refs
       this.animate(box)
     },
 
     beforeRouteEnter (to, from , next) {
-      // TODO descomentar
-      // const { path } = from
-      // if (path === '/orders/prepare/all') {
-      //   next(true)
-      // } else {
-      //   next(false)
-      // }
-      //
-      next()
+      const { path } = from
+      if (path === '/orders/prepare/all') {
+        next(true)
+      } else {
+        next(false)
+      }
     },
 
     async beforeRouteLeave (to, from, next) {
       const options = {
-        title: 'Você está preste a pausar a separação!',
+        title: 'Você está preste a parar sua tarefa de separação!',
         size: 'sm',
         okLabel: 'Sim',
         cancelLabel: 'Não',
@@ -134,18 +137,17 @@
 
       if (!this.isComplete) {
         this.$dialogs.confirm(
-          'Sair desta página automaticamente pausa a separação, os dados coletados serão computados e os registro dos items que você separou.',
+          'Sair desta página automaticamente para a separação, os dados coletados serão computados, assim como, registro dos items que você separou.',
           options
         ).then(res => {
-          console.log(res)
           if (res.ok) {
-            this.pausePrepare()
+            this.stopPrepare()
           }
           next(res.ok)
         })
+      } else {
+        next(true)
       }
-
-      next(true)
     },
 
     computed: {
@@ -160,9 +162,15 @@
     },
 
     methods: {
-      async pausePrepare () {
-        await service.pausePrepare()
-        this.$notify.success('Separação pausada com sucesso!', 'Pausada!')
+      async stopPrepare () {
+        const { _links } = store.getters['task/currentTask']
+
+        const formData = {
+          time: new Date()
+        }
+
+        await service.stopPrepare(_links, formData)
+        this.$notify.success('Separação parada com sucesso!', 'Parada!')
       },
 
       animate: function (box) {
@@ -187,7 +195,7 @@
           const amount = this.quantity
           const { name } = this.selectedLocal
 
-          await service.updateOrderItem({ uuid, amount, name })
+          await service.decrementOrderItem({ uuid, amount, name })
 
           this.selectedLocal = {}
           this.$notify.success('Items Adicionado', 'Sucesso!')
@@ -199,10 +207,16 @@
       async onHidden (event) {
         event.preventDefault()
         const result = this.order.items.filter(item => item.amount !== item.prepare)
-        console.log(result)
         if (result.length === 0) {
           this.isComplete = true
-          await service.completeOrder(this.order)
+
+          const { _links } = store.getters['task/currentTask']
+
+          const formData = {
+            time: new Date()
+          }
+
+          await service.completeOrder(_links, formData)
           setTimeout(this.redirect, 3000)
         }
       },
