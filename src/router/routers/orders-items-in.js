@@ -3,13 +3,8 @@ const Orders = () =>import('@/views/orders/itemsIn/items-in-all')
 
 export default [
   {
-    path: '/orders/in/all',
+    path: '/orders/items-in/all',
     name: 'Entrada de Items',
     component:  Orders,
   },
-  // {
-  //   path: '/orders/prepare/start',
-  //   name: 'Executando Separação',
-  //   component: OrderStart,
-  // }
 ]

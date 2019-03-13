@@ -148,8 +148,8 @@
 <script>
   import store from '@/store'
   import { allocation, allocationAddressAttributes } from '@/service'
-  import CForm from '@/components/forms/c-form'
-  import ButtonBack from '@/components/forms/c-button-back'
+  import CForm from './c-form'
+  import ButtonBack from './c-button-back'
   import { ModelListSelect } from 'vue-search-select'
   import { ValidateText, ValidationNumber } from '@/tools/validations'
   import Animation from '@/components/loaders/animation'
@@ -177,8 +177,24 @@
   }
 
   export default {
-    name: 'new-allocation',
+    name: 'form-allocations',
     components: { Animation, CForm, ModelListSelect, ButtonBack },
+    props: {
+      formData: {
+        type: Object,
+        default: {
+          uuid: '',
+          name: '',
+          address: '',
+          quantityMax:'',
+          quantityMin: '',
+          quantity: '',
+          itemAllocated: {},
+          reserves: [],
+          _links: '',
+        }
+      }
+    },
 
     data () {
       return {
@@ -186,7 +202,6 @@
         searchInProcess: false,
         submitting: false,
         isValid: false,
-        formData: getFormData(),
         selectedLocal: {},
         allocations: [],
         titleCardForm: 'Alocação',
@@ -327,7 +342,7 @@
       },
 
       resetForm () {
-        this.formData = getFormData()
+        this.formData = {}
       },
     },
   }

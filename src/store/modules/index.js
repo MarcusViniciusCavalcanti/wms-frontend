@@ -3,6 +3,8 @@ import endpoints from './endpoints'
 import allocationsAddressAttributes from './allocations-address-attributes'
 import allocation from './allocation'
 import order from './order'
+import task from './task'
+import reallocation from './reallocation'
 
 export default {
   app,
@@ -10,4 +12,6 @@ export default {
   allocationsAddressAttributes,
   allocation,
   order,
+  task,
+  reallocation,
 }
