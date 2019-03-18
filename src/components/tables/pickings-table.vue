@@ -44,7 +44,6 @@
 
         <template slot="row-details" slot-scope="row">
           <b-col cols="12" sm="6" lg="6">
-            <i class="fa fa-archive bg-primary p-3 font-2xl mr-3 float-left"></i>
             <div v-for="reserve in row.item.reserves">
               <div class="h5 text-primary mb-0 mt-2">{{ reserve.name}}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">{{ reserve.address}}</div>

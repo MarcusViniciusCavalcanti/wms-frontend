@@ -1,6 +1,6 @@
 <template>
 
-  
+
 
   <b-card>
     <b-table
@@ -150,9 +150,9 @@
         const  reallocation = store.getters['reallocation/reallocation']
         await service.reallocationItem(reallocation, this.reallocated)
 
-        const { prepare } = reallocation
+        const { prepare, quantity } = await reallocation
 
-        if (prepare === 0) {
+        if (prepare === quantity) {
          await service.completeTask(reallocation)
           this.$notify.success('Realocação concluída com sucesso!', 'Concluída!')
         }

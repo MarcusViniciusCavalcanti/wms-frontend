@@ -10,7 +10,7 @@ export default class Reallocation {
   async reallocationItem ({ _links }, quantity) {
     const { addItem } = _links
     const { data:reallocation } = await HTTP.patch(addItem.href, { prepare: quantity})
-    store.commit('reallocation/UPDATE_QUANTITY', reallocation)
+    store.commit('reallocation/SET_REALLOCATION', reallocation)
 
     return reallocation
   }

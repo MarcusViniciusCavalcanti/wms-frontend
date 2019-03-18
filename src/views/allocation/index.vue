@@ -107,7 +107,7 @@
     methods: {
       update: async function (allocation) {
         store.commit('allocation/SET_ALLOCATION', allocation)
-        this.$router.push('/configurations/allocations/edit')
+        this.$router.push('/allocations/edit')
       },
 
       remove: async function (allocation, table) {

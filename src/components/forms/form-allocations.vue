@@ -13,66 +13,70 @@
           autocomplete="off"
         >
           <b-row>
-            <b-form-group
-              class="col-md-6 col-sm-12"
-              id="name"
-              label="Nome"
-              label-for="name"
-              description="Código de identificação da alocação"
-              :invalid-feedback="nameInvalidFeedback"
-              :valid-feedback="nameValidateFeedback"
-              :state="name"
-            >
-              <b-form-input
-                required
-                id="name-input"
-                type="text"
-                v-model="formData.name"
+            <b-col>
+              <b-form-group
+                id="name"
+                label="Nome"
+                label-for="name"
+                description="Código de identificação da alocação"
+                :invalid-feedback="nameInvalidFeedback"
+                :valid-feedback="nameValidateFeedback"
                 :state="name"
-                placeholder="Ex: b-17-20-50"/>
-            </b-form-group>
-
+              >
+                <b-form-input
+                  required
+                  id="name-input"
+                  type="text"
+                  v-model="formData.name"
+                  :state="name"
+                  placeholder="Ex: b-17-20-50"/>
+              </b-form-group>
+            </b-col>
           </b-row>
 
           <b-row>
-            <b-form-group
-              class="col-md-6 col-sm-12"
-              id="quantityMax"
-              label="Capacidade"
-              label-for="input-quantityMax"
-              description="Quantidade máxima alocada, esta informação é útil para o sistema."
-              :invalid-feedback="capacityInvalidFeedback"
-              :valid-feedback="capacityValidateFeedback"
-              :state="capacity"
-            >
-              <b-form-input
-                id="input-quantityMax"
-                v-model="formData.quantityMax"
-                required
+            <b-col md="6" sm="12">
+              <b-form-group
+                id="quantityMax"
+                label="Capacidade"
+                label-for="input-quantityMax"
+                description="Quantidade máxima alocada, esta informação é útil para o sistema."
+                :invalid-feedback="capacityInvalidFeedback"
+                :valid-feedback="capacityValidateFeedback"
                 :state="capacity"
-                placeholder="Ex: 1000"/>
-            </b-form-group>
+              >
+                <b-form-input
+                  id="input-quantityMax"
+                  v-model="formData.quantityMax"
+                  required
+                  :state="capacity"
+                  placeholder="Ex: 1000"/>
+              </b-form-group>
 
-            <b-form-group
-              class="col-md-6 col-sm-12"
-              id="quantityMin"
-              label="Minímo"
-              label-for="input-quantityMin"
-              description="Quantidade miníma, esta informação é útil para o sistema identificar quando o estoque está baixo e enviar uma alerta."
-              :invalid-feedback="minimalInvalidFeedback"
-              :valid-feedback="minimalValidateFeedback"
-              :state="minimal"
-            >
-              <b-form-input
-                id="input-quantityMin"
-                v-model="formData.quantityMin"
-                required
+            </b-col>
+
+            <b-col md="6" sm="12">
+              <b-form-group
+                id="quantityMin"
+                label="Minímo"
+                label-for="input-quantityMin"
+                description="Quantidade miníma, esta informação é útil para o sistema identificar quando o estoque está baixo e enviar uma alerta."
+                :invalid-feedback="minimalInvalidFeedback"
+                :valid-feedback="minimalValidateFeedback"
                 :state="minimal"
-                placeholder="Ex: 10"/>
-            </b-form-group>
+              >
+                <b-form-input
+                  id="input-quantityMin"
+                  v-model="formData.quantityMin"
+                  required
+                  :state="minimal"
+                  placeholder="Ex: 10"/>
+              </b-form-group>
+            </b-col>
 
-            <b-col md="12" sm="12">
-              <b-card bg-variant="light" class="col-md-6 col-sm-12">
+            <b-col md="6" sm="12">
+
+              <b-card bg-variant="light">
                 <b-form-group
                   label-cols-lg="4"
                   label="Endereçamento"
@@ -91,8 +95,9 @@
                   </b-form-group>
                 </b-form-group>
               </b-card>
-
-              <b-card bg-variant="light" class="col-md-6 col-sm-12">
+            </b-col>
+            <b-col md="6" sm="12">
+              <b-card bg-variant="light">
 
                 <b-row>
                   <b-col md="12" sm="12" class="margin-bottom">
@@ -100,7 +105,7 @@
                     <b-badge
                       class="margin-left"
                       variant="info"
-                      v-for="reserve in this.formData.reserves"
+                      v-for="reserve in formData.reserves"
                       :key="reserve.uuid">
                       {{ reserve.name }}
                     </b-badge>
@@ -118,7 +123,9 @@
                   </b-col>
 
                   <b-col md="2" sm="12">
-                    <div v-if="searchInProcess"><animation /></div>
+                    <div v-if="searchInProcess">
+                      <animation/>
+                    </div>
                     <div v-else>
                       <b-button variant="outline-primary" @click.prevent="addReserve">
                         <i class="fa fa-plus"></i>
@@ -128,6 +135,7 @@
                 </b-row>
               </b-card>
             </b-col>
+
           </b-row>
 
           <div class="row">
@@ -140,7 +148,6 @@
           </div>
         </b-form>
       </b-card-body>
-
     </b-card>
   </div>
 </template>
@@ -167,7 +174,11 @@
     const address = allocation.address.split(/\s*,\s*/)
 
     attributes.forEach(({ name: inputName }) => {
-      allocation[inputName] = address.find(name => name.includes(inputName)).replace(inputName, '')
+      const addressValue = address.find(name => name.includes(inputName))
+
+      if (addressValue) {
+        allocation[inputName] = addressValue.replace(inputName, '')
+      }
     })
 
     return Object.assign(
@@ -179,22 +190,6 @@
   export default {
     name: 'form-allocations',
     components: { Animation, CForm, ModelListSelect, ButtonBack },
-    props: {
-      formData: {
-        type: Object,
-        default: {
-          uuid: '',
-          name: '',
-          address: '',
-          quantityMax:'',
-          quantityMin: '',
-          quantity: '',
-          itemAllocated: {},
-          reserves: [],
-          _links: '',
-        }
-      }
-    },
 
     data () {
       return {
@@ -205,11 +200,24 @@
         selectedLocal: {},
         allocations: [],
         titleCardForm: 'Alocação',
+        selectedReserve: {},
+        formData: {
+          uuid: '',
+          name: '',
+          address: '',
+          quantityMax: '',
+          quantityMin: '',
+          quantity: '',
+          itemAllocated: {},
+          reserves: [],
+          _links: '',
+        },
       }
     },
 
     mounted: async function () {
       await allocationAddressAttributes.getAll()
+      this.formData = await getFormData()
     },
 
     computed: {
@@ -291,13 +299,13 @@
       addReserve () {
         const { reserves } = this.formData
 
-        if (reserves === undefined && this.selectedLocal.uuid !== null) {
-          this.formData.reserves = [this.selectedLocal]
-        }  else {
-          const found = reserves.some(({uuid}) => uuid === this.selectedLocal.uuid)
+        if (reserves === undefined && this.selectedReserve.uuid !== null) {
+          this.formData.reserves = [this.selectedReserve]
+        } else {
+          const found = reserves.some(({ uuid }) => uuid === this.selectedReserve.uuid)
 
-          if (!found && this.selectedLocal.uuid !== null) {
-            this.formData.reserves.push(this.selectedLocal)
+          if (!found && this.selectedReserve.uuid !== null) {
+            this.formData.reserves.push(this.selectedReserve)
             this.selectedReserve = {}
           }
         }
@@ -323,8 +331,8 @@
 
         if (this.isValidForm) {
           try {
-            const reserves = this.formData.reserves.flatMap(({uuid}) => uuid)
-            const  { uuid, name, address, quantityMax, quantityMin, _links } = this.formData
+            const reserves = this.formData.reserves.flatMap(({ uuid }) => uuid)
+            const { uuid, name, address, quantityMax, quantityMin, _links } = this.formData
             await allocation.save({ uuid, name, address, quantityMax, quantityMin, _links, reserves })
 
             if (this.formData.uuid !== '') {
@@ -342,7 +350,19 @@
       },
 
       resetForm () {
-        this.formData = {}
+        const objectDefault = {
+          uuid: '',
+          name: '',
+          address: '',
+          quantityMax: '',
+          quantityMin: '',
+          quantity: '',
+          itemAllocated: {},
+          reserves: [],
+          _links: '',
+        }
+        this.formData = objectDefault
+        store.commit('allocation/SET_ALLOCATION', objectDefault)
       },
     },
   }

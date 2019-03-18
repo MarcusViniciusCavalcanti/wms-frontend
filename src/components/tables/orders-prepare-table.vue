@@ -84,6 +84,14 @@
     props: {
       id: {
         type: String,
+        default: '',
+      },
+      storeAction: {
+        type: String,
+        default: '',
+      },
+      urlStart: {
+        type: String,
         require
       },
       labelItem: {
@@ -143,8 +151,8 @@
       },
 
       startPrepare (order) {
-        store.commit('order/SET_ORDER', order)
-        this.$router.push('/orders/prepare/start')
+        store.commit(this.storeAction, order)
+        this.$router.push(this.urlStart)
       }
     },
   }

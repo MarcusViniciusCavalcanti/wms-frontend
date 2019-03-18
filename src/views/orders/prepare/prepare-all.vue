@@ -12,6 +12,8 @@
 
           <OrderTable
             id="released"
+            urlStart="/orders/prepare/start"
+            storeAction="order/SET_ORDER"
             resourceName="orderResourceList"
             :url="this.urlAllPrepare"
             :fields='fieldsPrepare'
@@ -54,14 +56,14 @@
         fieldsPrepare: [
           { key: 'document', label: 'Documento', sortable: true },
           { key: 'operation', label: 'Tipo de operação', sortable: true },
-          { key: 'destination', label: 'Destino / Origem', sortable: true },
+          { key: 'destination', label: 'Destino', sortable: true },
           { key: 'items', label: '' },
           { key: 'process', label: '% Concluida'},
           { key: 'tasks', label: 'Execuções'},
         ],
         fieldsComplete: [
           { key: 'document', label: 'Documento', sortable: true },
-          { key: 'destination', label: 'Destino / Origem', sortable: true },
+          { key: 'destination', label: 'Destino', sortable: true },
           { key: 'items', label: '' },
           { key: 'completeIn', label: 'Concluida em'},
           { key: 'tasks', label: 'Execuções'},
@@ -70,16 +72,10 @@
   },
 
     mounted : async function () {
-      const { allReleasedPrepare, allComplete } = store.getters['endpoints/orders']
+      const { allReleasedPrepare, allPrepareComplete } = store.getters['endpoints/orders']
       this.urlAllPrepare = allReleasedPrepare.href
-      this.urlAllComplete = allComplete.href
+      this.urlAllComplete = allPrepareComplete.href
     },
-
-    methods: {
-      startPrepare () {
-
-      }
-    }
   }
 </script>
 

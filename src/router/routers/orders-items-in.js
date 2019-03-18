@@ -1,5 +1,5 @@
 const Orders = () =>import('@/views/orders/itemsIn/items-in-all')
-// const OrderStart = () => import('@/views/orders/prepare/prepare-start')
+const OrderStart = () => import('@/views/orders/itemsIn/items-in-start')
 
 export default [
   {
@@ -7,4 +7,9 @@ export default [
     name: 'Entrada de Items',
     component:  Orders,
   },
+  {
+    path: '/orders/items-in/start',
+    name: 'Executando Entrada de Items',
+    component: OrderStart,
+  }
 ]

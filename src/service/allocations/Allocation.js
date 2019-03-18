@@ -41,8 +41,6 @@ export default class Allocation {
     const { page:contentPage, _embedded, _links } = data
     const { number:currentPage, size, totalElements, totalPages } = contentPage
 
-    console.log('extracted',currentPage)
-
     return {
       page: {
         content: [
